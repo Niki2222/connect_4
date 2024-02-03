@@ -1,0 +1,39 @@
+.container {
+    width: 40rem;
+}
+.card {
+    border: none;
+}
+
+.btn {
+    width: 10rem;
+}
+
+#matrix {
+    width: 490px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px auto;
+    justify-content: center;
+}
+
+.box {
+    width: 60px;
+    height: 60px;
+    border: solid 1px #ccc;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divChild {
+    height: 2rem;
+    width: 2rem;
+    margin-top: .1rem;
+    margin-left: .1rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+}
+
