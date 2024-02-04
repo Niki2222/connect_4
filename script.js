@@ -8,19 +8,21 @@ let winner = "";
 let comboPositions = [0, 1, 2, 3];
 
 function createMatrix() {
-  for (let i = 0; i < LINE_LENGTH; ++i) {
-    const row = [];
-    for (let j = 0; j < COL_LENGTH; ++j) {
-      const box = document.createElement('div');
-      const divChild = document.createElement('div');
-      divChild.className = 'divChild';
-      box.className = 'box';
-      box.appendChild(divChild);
-      matrixElement.appendChild(box);
-      row.push(box);
+    for (let i = 0; i < LINE_LENGTH; ++i) {
+        const row = [];
+        for (let j = 0; j < COL_LENGTH; ++j) {
+            const box = document.createElement('div');
+            const divChild = document.createElement('div');
+            divChild.className = 'divChild';
+            divChild.setAttribute('data-line', i);
+            divChild.setAttribute('data-column', j);
+            box.className = 'box';
+            box.appendChild(divChild);
+            matrixElement.appendChild(box);
+            row.push(box);
+        }
+        matrix.push(row);
     }
-    matrix.push(row);
-  }
 };
 
 createMatrix();
@@ -34,13 +36,21 @@ function startPlayer(colorAssigned) {
 function addColor(e) {
     e.stopPropagation();
     ++counter;
-    e.target.style.backgroundColor = tokenColor;
+    let column = parseInt(e.target.getAttribute('data-column'));
+    for (let i = LINE_LENGTH - 1; i >= 0; --i) {
+        let cell = matrix[i][column].firstElementChild;
+        if (cell.style.backgroundColor === '') {
+            cell.style.backgroundColor = tokenColor;
+            break;
+        }
+        console.log(cell.style.backgroundColor);
+    }
     findWinner();
     if (tokenColor === 'yellow') {
         tokenColor = 'red';
     } else {
         tokenColor = 'yellow';
-    }
+    }   
 }
 
 function playGame() {
