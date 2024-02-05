@@ -43,7 +43,6 @@ function addColor(e) {
             cell.style.backgroundColor = tokenColor;
             break;
         }
-        console.log(cell.style.backgroundColor);
     }
     findWinner();
     if (tokenColor === 'yellow') {
