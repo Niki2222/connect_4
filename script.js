@@ -68,11 +68,7 @@ function verticalCheck(elem) {
                 for (let k = 0; k < 4; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col].firstElementChild.style.backgroundColor)) {
-                        if (elem === 'yellow') {
-                            winner = 'yellow';
-                        } else if ( elem === 'red') {
-                            winner = 'red';
-                        }
+                        winner = elem;  
                     }
                 }
             }            
@@ -80,7 +76,7 @@ function verticalCheck(elem) {
     }
 }
 
-function orizontalCheck(elem) {
+function horizontalCheck(elem) {
     for (let line = 0; line < LINE_LENGTH; ++line) {
         for (let col = 0; col < COL_LENGTH; ++col) {
             if ((col === 0 || col === 1 || col === 2 || col === 3) 
@@ -88,11 +84,7 @@ function orizontalCheck(elem) {
                 for (let k = 0; k < 4; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line][col + k].firstElementChild.style.backgroundColor)) {
-                        if (elem === 'yellow') {
-                            winner = 'yellow';
-                        } else if ( elem === 'red') {
-                            winner = 'red';
-                        }
+                        winner = elem;
                     }
                 }
             }               
@@ -109,11 +101,7 @@ function mainDiagonalCheck(elem) {
                 for (let k = 0; k < 4; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col + k].firstElementChild.style.backgroundColor)) {
-                        if (elem === 'yellow') {
-                            winner = 'yellow';
-                        } else if ( elem === 'red') {
-                            winner = 'red';
-                        }
+                        winner = elem;
                     }
                 }
             }               
@@ -130,11 +118,7 @@ function secondDiagonalCheck(elem) {
                 for (let k = 0; k < 4; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col - k].firstElementChild.style.backgroundColor)) {
-                        if (elem === 'yellow') {
-                            winner = 'yellow';
-                        } else if ( elem === 'red') {
-                            winner = 'red';
-                        }
+                        winner = elem;
                     }
                 }
             }               
@@ -144,7 +128,7 @@ function secondDiagonalCheck(elem) {
 
 function checkConditions() {
     verticalCheck(tokenColor);
-    orizontalCheck(tokenColor);
+    horizontalCheck(tokenColor);
     mainDiagonalCheck(tokenColor);
     secondDiagonalCheck(tokenColor);
 }
@@ -166,7 +150,3 @@ function removeEvents() {
         elem.removeEventListener("click", addColor);
     });
 }
-
-
-
-
