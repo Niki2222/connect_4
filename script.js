@@ -1,4 +1,5 @@
 const matrixElement = document.getElementById('matrix');
+const COMBO_POS = 4;
 const LINE_LENGTH = 6;
 const COL_LENGTH = 7;
 const matrix = [];
@@ -60,12 +61,25 @@ function playGame() {
     });
 }
 
+function lineVertical(line) {
+    return line === 0 || line === 1 || line === 2;
+}
+
+function colHorizontal(col) {
+    return col === 0 || col === 1 || col === 2 || col === 3;
+}
+
+function colSecondDiag(col) {
+    return col === LINE_LENGTH - 3 || col === LINE_LENGTH - 2 || col === LINE_LENGTH - 1 
+        || col === LINE_LENGTH;
+}
+
 function verticalCheck(elem) {
     for (let line = 0; line < LINE_LENGTH; ++line) {
         for (let col = 0; col < COL_LENGTH; ++col) {
-            if ((line === 0 || line === 1 || line === 2) 
-                && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
-                for (let k = 0; k < 4; ++k) {
+            if (lineVertical(line) 
+            && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
+                for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col].firstElementChild.style.backgroundColor)) {
                         winner = elem;  
@@ -79,9 +93,9 @@ function verticalCheck(elem) {
 function horizontalCheck(elem) {
     for (let line = 0; line < LINE_LENGTH; ++line) {
         for (let col = 0; col < COL_LENGTH; ++col) {
-            if ((col === 0 || col === 1 || col === 2 || col === 3) 
+            if (colHorizontal(col) 
                 && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
-                for (let k = 0; k < 4; ++k) {
+                for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line][col + k].firstElementChild.style.backgroundColor)) {
                         winner = elem;
@@ -95,10 +109,9 @@ function horizontalCheck(elem) {
 function mainDiagonalCheck(elem) {
     for (let line = 0; line < LINE_LENGTH; ++line) {
         for (let col = 0; col < COL_LENGTH; ++col) {
-            if ((line === 0 || line === 1 || line === 2)
-                && (col === 0 || col === 1 || col === 2 || col === 3) 
+            if (lineVertical(line) && colHorizontal(col) 
                 && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
-                for (let k = 0; k < 4; ++k) {
+                for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col + k].firstElementChild.style.backgroundColor)) {
                         winner = elem;
@@ -112,10 +125,9 @@ function mainDiagonalCheck(elem) {
 function secondDiagonalCheck(elem) {
     for (let line = 0; line < LINE_LENGTH; ++line) {
         for (let col = 0; col < COL_LENGTH; ++col) {
-            if ((line === 0 || line === 1 || line === 2)
-                && (col === 3 || col === 4 || col === 5 || col === 6) 
+            if (lineVertical(line) && colSecondDiag(col) 
                 && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
-                for (let k = 0; k < 4; ++k) {
+                for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col - k].firstElementChild.style.backgroundColor)) {
                         winner = elem;
@@ -137,10 +149,10 @@ function findWinner() {
     checkConditions();
     if (winner !== "") {
         document.getElementById('winner').innerHTML = `<h2>Player ${winner} WON!!!</h2>`;
-    } else if (counter === 42) {
+    } else if (counter === LINE_LENGTH * COL_LENGTH) {
         document.getElementById('winner').innerHTML = `<h2>There is no winner...</h2>`;
     }
-    if (winner || counter === 42) {
+    if (winner || counter === LINE_LENGTH * COL_LENGTH) {
         removeEvents();
     }
 }
