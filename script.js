@@ -61,24 +61,10 @@ function playGame() {
     });
 }
 
-function lineVertical(line) {
-    return line === 0 || line === 1 || line === 2;
-}
-
-function colHorizontal(col) {
-    return col === 0 || col === 1 || col === 2 || col === 3;
-}
-
-function colSecondDiag(col) {
-    return col === LINE_LENGTH - 3 || col === LINE_LENGTH - 2 || col === LINE_LENGTH - 1 
-        || col === LINE_LENGTH;
-}
-
 function verticalCheck(elem) {
-    for (let line = 0; line < LINE_LENGTH; ++line) {
+    for (let line = 0; line < LINE_LENGTH - 3; ++line) {
         for (let col = 0; col < COL_LENGTH; ++col) {
-            if (lineVertical(line) 
-            && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
+            if (matrix[line][col].firstElementChild.style.backgroundColor === elem) {
                 for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col].firstElementChild.style.backgroundColor)) {
@@ -92,9 +78,8 @@ function verticalCheck(elem) {
 
 function horizontalCheck(elem) {
     for (let line = 0; line < LINE_LENGTH; ++line) {
-        for (let col = 0; col < COL_LENGTH; ++col) {
-            if (colHorizontal(col) 
-                && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
+        for (let col = 0; col < COL_LENGTH - 3; ++col) {
+            if (matrix[line][col].firstElementChild.style.backgroundColor === elem) {
                 for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line][col + k].firstElementChild.style.backgroundColor)) {
@@ -107,10 +92,9 @@ function horizontalCheck(elem) {
 }
 
 function mainDiagonalCheck(elem) {
-    for (let line = 0; line < LINE_LENGTH; ++line) {
-        for (let col = 0; col < COL_LENGTH; ++col) {
-            if (lineVertical(line) && colHorizontal(col) 
-                && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
+    for (let line = 0; line < LINE_LENGTH - 3; ++line) {
+        for (let col = 0; col < COL_LENGTH - 3; ++col) {
+            if (matrix[line][col].firstElementChild.style.backgroundColor === elem) {
                 for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col + k].firstElementChild.style.backgroundColor)) {
@@ -123,10 +107,9 @@ function mainDiagonalCheck(elem) {
 }
 
 function secondDiagonalCheck(elem) {
-    for (let line = 0; line < LINE_LENGTH; ++line) {
-        for (let col = 0; col < COL_LENGTH; ++col) {
-            if (lineVertical(line) && colSecondDiag(col) 
-                && matrix[line][col].firstElementChild.style.backgroundColor === elem) {
+    for (let line = 0; line < LINE_LENGTH -3; ++line) {
+        for (let col = 3; col < COL_LENGTH; ++col) {
+            if (matrix[line][col].firstElementChild.style.backgroundColor === elem) {
                 for (let k = 0; k < COMBO_POS; ++k) {
                     if (comboPositions.every(k => elem === 
                         matrix[line + k][col - k].firstElementChild.style.backgroundColor)) {
